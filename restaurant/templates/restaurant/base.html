@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/juju.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <title>Juju</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light px-5">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"><img src="{% static 'images/iconfinder_banana_753487.svg' %}" alt="deux bananes" width="65" height="65"></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-4 mb-2 mb-lg-0 text-capitalize mx-auto">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'restaurant:index' %}">accueil</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'restaurant:index' %}#section-carte">la carte</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'restaurant:contact' %}">contact</a>
+                  </li>
+                </ul>
+                <div class="d-none d-lg-flex">
+                    <div class="mx-5">
+                        <span class="navbar-text mx-3">
+                            <i class="fas fa-phone"></i> 0594 00 00 00
+                        </span>
+                    </div>
+                    <div class="mx-5">    
+                        <button class="btn btn-outline-success" id="btn-pannier">
+                            <i class="fas fa-shopping-cart"></i>
+                            {% block btn_pannier %} 
+                            {% if pannier_tc.totale_pannier %}
+                                <span id="nombre-item">{{pannier_tc.nombre_element}} éléments - </span>
+                                <span id="totale-item">{{pannier_tc.totale_pannier  |floatformat:"0" }} €</span>
+                            {% else %}
+                                <span id="nombre-item">Vide - </span>
+                                <span id="totale-item">0 €</span>
+                            {% endif %}
+                            {% endblock btn_pannier %}
+                        </button>
+                    </div>
+                    <div>
+                        <a href="{% url 'restaurant:logout' %}"class="btn btn-outline-danger"><i class="fas fa-sign-out-alt"></i> Deconnexion</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </nav>
+    </header>
+    {% block premiere_section %}
+    <section id="premiere-section">
+        <div class="container-fluid">
+            <div class="row min-vh-100 justify-content-center align-items-center banniere">
+                <div class="col-10 mx-auto text-center">
+                    <h1 class="text-capitalize">bienvenue chez <strong class="display-2 text-primary fw-bolder">JUJU</strong></h1>
+                    <a  href="#section-carte"class="btn btn-danger text-uppercase">découvrire</a>
+                </div>
+                {% block pannier %}
+                <div class="d-none justify-content-end p-0" id="pannier">
+                    <div class="pannier bg-light p-3 rounded">
+                        <div class="flex-column" id="container-pannier">
+                            {% if pannier %}
+                           
+                            {% for item in pannier %}
+                                <div class="d-flex justify-content-around my-3 text-capitalize">
+                                <img  class="rounded-circle img-mini" src="{{ item.nouriture.image.url }}" alt="{{ item.nouriture.nom }}">
+                                <div class="info-pannier text-center">
+                                    <p class="fw-bold mb-0">{{ item.nouriture.nom }}</p>
+                                    <p class="fw-bold mb-0">Quantité : {{ item.quantite}}</p>
+                                    <p class="fw-bold mb-0">Prix Unitaire : {{ item.nouriture.prix |floatformat:"0" }} €</p>
+                                </div>
+                                <button class="btn btn-outline-danger" onclick="effacerPannier({{item.id}})"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                            {% endfor %}
+                                <div class="text-center my-3">
+                                    <h4>
+                                        <span>Totale :</span>
+                                        <span>
+                                            {% if pannier_tc.totale_pannier%}
+                                                {{pannier_tc.totale_pannier  |floatformat:"0" }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                            €
+                                        </span>
+                                    </h4>
+                                </div>
+                            
+                            {% endif %}
+                            <div class="d-flex d-flex justify-content-around my-3">
+                                <button class="btn btn-outline-danger" onclick=viderPannier()>Vider pannier</button>
+                                <a href="{% url 'restaurant:commande'%}"class="btn btn-outline-success">Commander</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="taost-info"class="toast-container position-fixed top-0 start-0 p-3" style="z-index: 5">
+                </div>
+                {% endblock pannier %}
+            </div>
+        </div>
+    </section>
+    {% endblock premiere_section %}
+    {% block contenue %}
+
+    {% endblock contenue %}
+    {% block body %}
+
+    {% endblock body %}
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

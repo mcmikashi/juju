@@ -1,0 +1,12 @@
+{% extends 'compte/base.html' %} 
+{% load static %}
+{% block contenue%}
+<div class="container-fluid min-vh-100 bg-light">
+  <div class="row  text-center">
+    <div class="col-6 mx-auto mt-5">
+        <h2>Modification du mot de passe</h2>
+        {% include "formulaire/formulaire_base.html" %}
+    </div>
+  </div>
+</div>
+{% endblock contenue%}

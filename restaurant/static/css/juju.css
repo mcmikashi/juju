@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+body{
+    font-family: 'Pacifico', cursive;
+}
+header,.btn,.form-control{
+    font-size: 1.5rem;
+}
+.banniere{
+    background: linear-gradient(rgba(133, 255, 189, 0.5),rgba(255, 251, 125, 0.5)),url(../images/pexels-jane-d-1092730.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.item-restaurant{
+    transition: all 0.3 linear;
+}
+.item-restaurant:hover{
+    box-shadow: 0 10px 15px black;
+}
+.img-container{
+    position: relative;
+    overflow: hidden;
+}
+.card-image-top{
+    transition: all 1s ease-in-out;
+}
+.store-item-icon{
+        font-size: 2rem;
+        background-color: rgba(133, 255, 189, 0.75);
+        padding: 10px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        display: none;
+        border-top-left-radius: 1rem;
+
+}
+.img-container:hover .store-item-icon{
+    display: block;
+}
+.img-mini{
+    width: 75px;
+    height: 75px;
+}
+#pannier{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+#premiere-section{
+    position: relative;
+}
+#commande-formulaire input{
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.info-pannier{
+    min-width: 180px;;
+}

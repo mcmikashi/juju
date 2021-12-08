@@ -1,0 +1,46 @@
+{% extends 'restaurant/base.html' %} 
+{% block  contenue%}
+<section id="section-carte">
+    <div class="container">
+        <div class="row text-center mx-auto my-3">
+            <h1 class="text-capitalize">la <strong class="display-3 text-primary">carte</strong> </h1>
+        </div>
+        <div class="row">
+            <div class="col-8 mx-auto d-flex justify-content-around flex-wrap">
+                <button  class="btn btn-outline-success text-capitalize btn-filtre" onclick="categorieCarte(0)">Tous</button>
+            {% for item in categorie  %}
+                    <button class="btn btn-outline-success text-capitalize btn-filtre" onclick="categorieCarte({{item.id}})">{{item.nom}}</button>
+            {% endfor %}
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-8 mx-auto">
+                <div class="input-group mb-3">
+                    <input name="recherche-nouriture" type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    <button class="btn btn-outline-secondary" id="button-addon1" onclick="rechercheCarte()"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="carte-container">
+            {% for item  in object_list  %}
+            <div class="col-10 col-sm-6 col-lg-4 mx-auto my-3">
+                    <div class="card item-restaurant">
+                    <div class="img-container">
+                        <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.nom }}">
+                        <a   class="store-item-icon  stretched-link link-dark" onclick="ajouterPannier({{item.id}})">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text d-flex justify-content-between text-capitalize">
+                            <h5>{{ item.nom }}</h5>
+                            <h5>{{ item.prix | floatformat:"0"}} €</h5>            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock  %}

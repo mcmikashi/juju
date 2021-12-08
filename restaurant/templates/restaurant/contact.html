@@ -1,0 +1,21 @@
+{% extends 'restaurant/base.html' %} 
+{% load restaurant_extra %}
+{% block premiere_section %}
+<section id="premiere-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 mx-auto">
+            <h2 class="text-center">Contact</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{form}}
+                <button class="btn btn-primary my-2" type="submit">envoyer</button>
+            </form>
+            </div>
+            {% block pannier %}
+            {{ block.super }}
+            {% endblock pannier %}
+        </div>
+    </div>
+</section>
+{% endblock premiere_section %}

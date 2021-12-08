@@ -1,0 +1,59 @@
+{% extends 'restaurant/base.html' %} 
+{% load restaurant_extra %}
+{% block premiere_section %}
+<section id="premiere-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-10 mx-auto">
+            <h2 class="text-center">Recapitulatif de commande</h2>
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th class="text-uppercase" scope="col">nom</th>
+                        <th class="text-uppercase"scope="col">prix unitaire</th>
+                        <th class="text-uppercase" scope="col">quantite</th>
+                        <th class="text-uppercase" scope="col">totale</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in pannier %}
+                    <tr>
+                        <td class="text-capitalize">{{ item.nouriture.nom }}</td>
+                        <td>{{ item.nouriture.prix}}</td>
+                        <td>{{ item.quantite}}</td>
+                        <td>{% caculeTotale item.quantite item.nouriture.prix %} </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="4">Totale : {{pannier_tc.totale_pannier}} €</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+            {% block pannier %}
+            {{ block.super }}
+            {% endblock pannier %}
+        </div>
+        <div class="row">
+            <div class="col-10 mx-auto">
+                <form method="post" id="commande-formulaire">
+                    {% csrf_token %}
+                        <div class="mb-3">
+                            {{form.adresse.label_tag}}
+                            {{form.adresse}}
+                        </div>
+                        <div class="mb-3">
+                            {{form.code_postale.label_tag}}
+                            {{form.code_postale}}
+                        </div>
+                        <div class="mb-3">
+                            {{form.ville.label_tag}}
+                            {{form.ville}}
+                        </div>
+                        <button class="btn btn-success" type="submit">Commander</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock premiere_section %}
