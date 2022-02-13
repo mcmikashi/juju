@@ -1,4 +1,4 @@
-# suivi_alim
+# Resto de juju
 Site web du restaurant de juju pour des livraison à domicile
 Pour installer :
 - Creation d'un nouvelle environement python
