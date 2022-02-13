@@ -13,7 +13,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.7, 3.8]
+        python-version: [3.8, 3.9,3.10]
 
     steps:
     - uses: actions/checkout@v2
@@ -31,4 +31,5 @@ jobs:
         black .
     - name: Run Tests
       run: |
+        pip install coverage
         coverage run --source='.' manage.py test
